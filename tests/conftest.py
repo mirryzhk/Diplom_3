@@ -2,18 +2,13 @@ import pytest
 from selenium import webdriver
 from urls import Urls
 
-
-@pytest.fixture(params=['firefox', 'chrome'])
+@pytest.fixture(params=["chrome", "firefox"])
 def driver(request):
-    if request.param == 'firefox':
-        options = webdriver.FirefoxOptions()
-        options.add_argument('--window-size=1920,1080')
-        driver = webdriver.Firefox(options=options)
-        driver.maximize_window()
-    elif request.param == 'chrome':
-        driver = webdriver.Chrome()
-        driver.maximize_window()
+    if request.param == 'chrome':
+        driver_instance = webdriver.Chrome()
+    else:
+        driver_instance = webdriver.Firefox()
 
-    driver.get(Urls.BASE_URL)
-    yield driver
-    driver.quit()
+    driver_instance.get(Urls.BASE_URL)
+    yield driver_instance
+    driver_instance.quit()
