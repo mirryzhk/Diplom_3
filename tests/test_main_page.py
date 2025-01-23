@@ -56,9 +56,9 @@ class TestMainPage:
 
     @allure.title("Проверка успешного оформления заказа авторизованным пользователем")
     @allure.description("Авторизованный пользователь может успешно оформить заказ")
-    def test_authorized_user_create_order_success(self, driver):
-        user_data = stellar_burgers_api.create_user_body()
-        user_response = stellar_burgers_api.create_user(user_data)
+    def test_authorized_user_create_order_success(self, driver, default_user):
+        user_data = default_user ['user_data']
+
         main_page = MainPage(driver)
         main_page.open()
         email = main_page.get_user_email(user_data)
@@ -76,6 +76,5 @@ class TestMainPage:
         main_page.add_meat_in_order()
         main_page.click_create_order_button()
         description_create_order = main_page.find_create_order_description()
-        access_token = stellar_burgers_api.get_access_token(user_response)
-        stellar_burgers_api.delete_user(access_token)
         assert description_create_order.text == "Ваш заказ начали готовить"
+

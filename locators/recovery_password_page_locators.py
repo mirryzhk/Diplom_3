@@ -11,4 +11,4 @@ class RecoveryPassPageLocators:
 
     EYE_BUTTON = (By. XPATH, "//div[contains(@class,'input__icon input__icon-action')]")
     PASSWORD_FIELD = (By.XPATH, "//input[@class='text input__textfield text_type_main-default'")
-    BUTTON_ACCOUNT = (By.XPATH, "(.//a[@class = 'AppHeader_header__link__3D_hX'])[2]")
+    BUTTON_ACCOUNT = (By.XPATH, "//a[@href='/feed']")

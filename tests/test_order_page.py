@@ -17,10 +17,9 @@ class TestOrderPage:
 
     @allure.title("Проверка появления номера нового заказа на экране 'Лента заказов'")
     @allure.description("Создаём заказ и проверяем, что его номер появляется среди всех заказов на странице 'Лента заказов'")
-    def test_order_in_order_list_success(self, driver):
+    def test_order_in_order_list_success(self, driver, default_user):
         # Создаём и авторизуем нового пользователя
-        user_data = stellar_burgers_api.create_user_body()
-        user_response = stellar_burgers_api.create_user(user_data)
+        user_data = default_user ['user_data']
         main_page = MainPage(driver)
         main_page.open()
         email = main_page.get_user_email(user_data)
@@ -47,18 +46,14 @@ class TestOrderPage:
         main_page.click_list_order_button()
         order_page = OrderPage(driver)
         order_number_in_list = order_page.get_order_number()
-        # Удаляем созданного пользователя
-        access_token = stellar_burgers_api.get_access_token(user_response)
-        stellar_burgers_api.delete_user(access_token)
         assert order_number == order_number_in_list
 
     @allure.title("Проверка увеличения значения счётчика заказов на экране 'Лента заказов'")
     @allure.description(
         "Создаём заказ и проверяем что счётчик всех заказов на экране 'Лента заказов' увеличивается на 1")
-    def test_order_counter_increases_when_new_order_is_placed_success(self, driver):
+    def test_order_counter_increases_when_new_order_is_placed_success(self, driver, default_user):
         # Создаём и авторизуем нового пользователя
-        user_data = stellar_burgers_api.create_user_body()
-        user_response = stellar_burgers_api.create_user(user_data)
+        user_data = default_user ['user_data']
         main_page = MainPage(driver)
         main_page.open()
         email = main_page.get_user_email(user_data)
@@ -83,18 +78,14 @@ class TestOrderPage:
         # Переходим на экран "Лента заказов" и получаем значение счётчика всех заказов
         main_page.click_list_order_button()
         counter_after = order_page.get_orders_counter()
-        # Удаляем созданного пользователя
-        access_token = stellar_burgers_api.get_access_token(user_response)
-        stellar_burgers_api.delete_user(access_token)
         assert (counter_after - counter_before) == 1
 
     @allure.title("Проверка увеличения значения счётчика 'Выполнено за сегодня' на экране 'Лента заказов'")
     @allure.description(
         "Создаём заказ и проверяем что счётчик выполненных заказов за сегодня, на экране 'Лента заказов', увеличивается на 1")
-    def test_order_counter_today_increases_when_new_order_is_placed_success(self, driver):
+    def test_order_counter_today_increases_when_new_order_is_placed_success(self, driver, default_user):
         # Создаём и авторизуем нового пользователя
-        user_data = stellar_burgers_api.create_user_body()
-        user_response = stellar_burgers_api.create_user(user_data)
+        user_data = default_user ['user_data']
         main_page = MainPage(driver)
         main_page.open()
         email = main_page.get_user_email(user_data)
@@ -119,18 +110,14 @@ class TestOrderPage:
         # Переходим на экран "Лента заказов" и получаем значение счётчика выполненных за сегодня заказов
         main_page.click_list_order_button()
         counter_after = order_page.get_orders_counter_today()
-        # Удаляем созданного пользователя
-        access_token = stellar_burgers_api.get_access_token(user_response)
-        stellar_burgers_api.delete_user(access_token)
         assert (counter_after - counter_before) == 1
 
     @allure.title("Проверка появления номера нового заказа на экране 'Лента заказов' в разделе 'В работе'")
     @allure.description(
         "Создаём заказ и проверяем что его номер отображается на экране 'Лента заказов' в разделе 'В работе'")
-    def test_number_appears_in_progress_section_success(self, driver):
+    def test_number_appears_in_progress_section_success(self, driver, default_user):
         # Соаздаём и авторизуемся новым пользователем
-        user_data = stellar_burgers_api.create_user_body()
-        user_response = stellar_burgers_api.create_user(user_data)
+        user_data = default_user ['user_data']
         main_page = MainPage(driver)
         main_page.open()
         email = main_page.get_user_email(user_data)
@@ -152,7 +139,4 @@ class TestOrderPage:
         main_page.click_list_order_button()
         order_page = OrderPage(driver)
         number_in_order_list = order_page.get_order_in_works_number()
-        # Удаляем созданного пользователя
-        access_token = stellar_burgers_api.get_access_token(user_response)
-        stellar_burgers_api.delete_user(access_token)
         assert number_in_order_list == new_order_number

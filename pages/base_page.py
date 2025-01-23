@@ -8,7 +8,7 @@ class BasePage:
         self.driver = driver
 
     def wait_and_find_element(self, locator):
-        WebDriverWait(self.driver, 5).until(expected_conditions.visibility_of_element_located(locator))
+        WebDriverWait(self.driver, 10).until(expected_conditions.visibility_of_element_located(locator))
         return self.driver.find_element(*locator)
 
 
@@ -23,6 +23,16 @@ class BasePage:
         except TimeoutException:
             return False
 
+    def wait_for_element(self, locator, timeout=10):
+        return WebDriverWait(self.driver, timeout).until(
+            expected_conditions.visibility_of_element_located(locator)
+        )
+
+    def wait_for_element_text_to_change(self, locator, text, timeout=10):
+        WebDriverWait(self.driver, timeout).until(
+            lambda driver: self.wait_for_element(locator).text != text
+        )
+        return self.wait_for_element(locator)
 
     def click_element(self, locator):
         self.driver.execute_script("arguments[0].click();", locator)

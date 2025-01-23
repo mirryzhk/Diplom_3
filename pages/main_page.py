@@ -1,4 +1,3 @@
-from selenium.webdriver.support.wait import WebDriverWait
 from seletools.actions import drag_and_drop
 from pages.base_page import BasePage
 from urls import Urls
@@ -81,8 +80,10 @@ class MainPage(BasePage):
 
     @allure.step("Получение номера оформленного заказа")
     def get_new_order_number(self):
-        WebDriverWait(self.driver, 10).until(lambda driver: self.wait_and_find_element(MainPageLocators.NUMBER_NEW_ORDER).text != '9999')
-        new_order_number_element = self.wait_and_find_element(MainPageLocators.NUMBER_NEW_ORDER)
+        new_order_number_element = self.wait_for_element_text_to_change(
+            MainPageLocators.NUMBER_NEW_ORDER,
+            text = "9999",
+            timeout=10)
         new_order_number = new_order_number_element.text
         return int(new_order_number)
 
