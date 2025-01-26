@@ -32,19 +32,19 @@ class MainPage(BasePage):
     def add_bun_in_order(self):
         source = self.wait_and_find_element(MainPageLocators.BUN_INGREDIENT)
         target = self.wait_and_find_element(MainPageLocators.BURGER_ORDER)
-        drag_and_drop(self.driver, source, target)
+        self.drag_and_drop(source, target)
 
     @allure.step("Перемещение соуса в зону создания бургера")
     def add_sauce_in_order(self):
         source = self.wait_and_find_element(MainPageLocators.SAUCE_INGREDIENT)
         target = self.wait_and_find_element(MainPageLocators.BURGER_ORDER)
-        drag_and_drop(self.driver, source, target)
+        self.drag_and_drop(source, target)
 
     @allure.step("Перемещение мяса в зону создания бургера")
     def add_meat_in_order(self):
         source = self.wait_and_find_element(MainPageLocators.MEAT_INGREDIENT)
         target = self.wait_and_find_element(MainPageLocators.BURGER_ORDER)
-        drag_and_drop(self.driver, source, target)
+        self.drag_and_drop(source, target)
 
     @allure.step("Клик по кнопке 'Оформить заказ'")
     def click_create_order_button(self):
@@ -108,4 +108,4 @@ class MainPage(BasePage):
 
     @allure.step("Сравнение URL текущей страницы с адресом страницы 'Лента заказов'")
     def check_order_list_url(self):
-        return self.driver.current_url == (Urls.BASE_URL + Urls.LIST_ORDER_PAGE)
+        return self.get_current_url() == (Urls.BASE_URL + Urls.LIST_ORDER_PAGE)

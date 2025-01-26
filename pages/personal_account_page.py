@@ -52,8 +52,8 @@ class PersonalAccountPage(BasePage):
 
     @allure.step("Сравнение URL текущей страницы с адресом страницы 'История заказов'")
     def check_order_history_page_url(self):
-        return self.driver.current_url == (Urls.BASE_URL + Urls.ORDER_HISTORY_URL)
+        return self.get_current_url() == (Urls.BASE_URL + Urls.ORDER_HISTORY_URL)
 
     @allure.step("Сравнение URL текущей страницы с адресом страницы входа в аккаунт")
     def check_login_page_url(self):
-        return self.driver.current_url == (Urls.BASE_URL + Urls.LOGIN_URL)
+        return self.get_current_url() == (Urls.BASE_URL + Urls.LOGIN_URL)

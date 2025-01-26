@@ -37,3 +37,4 @@ class RecoveryPasswordPage(BasePage):
     def check_recovery_pass_title(self):
         if self.is_element_present(RecoveryPassPageLocators.RECOVER_TITLE) == True:
             return True
+

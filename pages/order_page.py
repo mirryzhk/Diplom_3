@@ -43,4 +43,4 @@ class OrderPage(BasePage):
 
     @allure.step("Сравнение URL текущей страницы с адресом главной страницы")
     def check_main_page_url(self):
-        return self.driver.current_url == Urls.BASE_URL
+        return self.get_current_url() == Urls.BASE_URL
